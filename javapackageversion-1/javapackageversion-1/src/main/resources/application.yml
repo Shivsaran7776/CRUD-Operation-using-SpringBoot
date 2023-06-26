@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ashwinkaranthamalai:Ashwin17@cluster0.qm1hj66.mongodb.net/java
+      database: java
