@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Read Products</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .product-list {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-item {
+      margin-bottom: 10px;
+    }
+
+    .product-item span {
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    axios.get("http://localhost:8080/api/products/all")
+      .then(function(response) {
+        var products = response.data;
+        displayProducts(products);
+      })
+      .catch(function(error) {
+        console.error("Error:", error);
+      });
+      function goToHome() {
+      window.location.href = "index.html";
+    }
+
+    function displayProducts(products) {
+      var productListContainer = document.getElementById("product-list-container");
+
+      products.forEach(function(product) {
+        var productItem = document.createElement("div");
+        productItem.classList.add("product-item");
+
+        var productId = document.createElement("span");
+        productId.textContent = "ID: " + product.id;
+        productItem.appendChild(productId);
+
+        var productName = document.createElement("span");
+        productName.textContent = "Name: " + product.name;
+        productItem.appendChild(productName);
+
+        var productPrice = document.createElement("span");
+        productPrice.textContent = "Price: $" + product.price.toFixed(2);
+        productItem.appendChild(productPrice);
+
+        var productQuantity = document.createElement("span");
+        productQuantity.textContent = "Quantity: " + product.quantity;
+        productItem.appendChild(productQuantity);
+
+        productListContainer.appendChild(productItem);
+      });
+
+    }
+  </script>
+</head>
+<body>
+  <h1>Read Products</h1>
+  <div class="container">
+    <div id="product-list-container" class="product-list"></div>
+
+  </div>
+  <button onclick="goToHome()">Go to Home</button>
+
+</body>
+</html>
